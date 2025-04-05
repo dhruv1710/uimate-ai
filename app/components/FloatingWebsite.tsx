@@ -22,7 +22,7 @@ const FloatingWebsite = () => {
   }, [])
 
   return (
-    <div className="relative w-full h-[400px] perspective-1000">
+    <div className="relative w-[500px] h-[300px] perspective-1000">
       <motion.div
         ref={containerRef}
         className="relative w-full h-full"

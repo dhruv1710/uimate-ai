@@ -29,17 +29,17 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center">
           <div className="flex items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
               <a href="#" className="text-2xl font-bold text-white flex items-center">
-                <span className="text-blue-400 mr-1">AI</span>Review
+                <span className="text-blue-400 mr-1">ui</span>mate
               </a>
             </motion.div>
           </div>
 
-          <nav className="hidden md:flex items-center space-x-8">
-            {["Features", "Pricing", "Testimonials", "FAQ"].map((item, index) => (
+          {/* <nav className="hidden md:flex items-center space-x-8">
+            {["Features","FAQ"].map((item, index) => (
               <motion.a
                 key={item}
                 href="#"
@@ -52,14 +52,15 @@ export default function Navbar() {
               </motion.a>
             ))}
 
-            <motion.div
+           
+          </nav> */}
+           {/* <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <Button className="bg-blue-600 hover:bg-blue-700 text-white">Get Started</Button>
-            </motion.div>
-          </nav>
+            </motion.div> */}
 
           <div className="md:hidden">
             <Button

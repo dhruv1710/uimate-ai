@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
@@ -11,10 +12,24 @@ import FloatingWebsite from "./components/FloatingWebsite"
 import ClipLoader from "react-spinners/ClipLoader"
 import { useState } from "react"
 import Script from "next/script"
+import { redirect } from "next/navigation"
+import Link from "next/link"
+import {useWebsiteStore} from '@/stores/website_store'
 
 export default function Home() {
-
+  const {url, setUrl} = useWebsiteStore()
+  const [urlerror, setUrlerror] = useState(false)
  
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setUrl(e.target.value)
+    let text = e.target.value
+    if (text.startsWith('https://') || text.startsWith('http://') || text.length === 0) {
+      setUrlerror(false)
+    } else {
+      setUrlerror(true)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black to-slate-950 text-white">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent pointer-events-none"></div>
@@ -35,35 +50,38 @@ export default function Home() {
               Elevate your UI with our cutting-edge AI analysis. Get instant, professional feedback on your designs and
               transform your user experience
             </p>
-            <div 
+            {/* Waitlist code */}
+            {/* <div 
               id="getWaitlistContainer" 
               data-waitlist_id="27036" 
               data-widget_type="WIDGET_3"
               className="mx-auto"
-            ></div>
-            {/* <div className="pt-4">
+            ></div> */}
+            <div className="pt-4">
               <div className="relative  ">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 "></div>
                 <Card className="relative bg-slate-900/60 backdrop-blur-sm border border-slate-800 rounded-lg p-2 flex">
                   <Input
-                    
+                    onChange ={(e)=>
+                      handleChange(e)
+                    }
+                    value={url}
+
                     placeholder="Enter your website URL"
                     className="border-0 bg-transparent text-white focus-visible:ring-0 focus-visible:ring-offset-0"
                   />
-                  <Button 
+                  <Button className="relative px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 rounded-lg text-lg" asChild>
+                  <Link href={urlerror ? "#" : "/login"}>
+                    Summon AI Review
+                    <Sparkles className="ml-2 h-5 w-5" />
+                  </Link>
                   
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 ml-2">
-
-                    
-                "Sign up for waitlist"
-              
-                   
-                    <Sparkles className="ml-2 h-4 w-4" />
-                  </Button>
+                </Button>
                 </Card>
               </div>
+              {urlerror && <p className="text-red-500 mt-2">Please enter a valid URL</p>}
               <p className="text-xs text-slate-400 mt-2 ml-1">Free forever</p>
-            </div> */}
+            </div>
           </div>
 
           <div className="">
@@ -84,24 +102,12 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <FeatureCard
               icon={<Eye />}
-              title="Visual Analysis"
+              title="Aesthetics Analysis"
               description="AI-powered assessment of visual hierarchy, color theory, and design consistency."
             />
-            <FeatureCard
-              icon={<Layout />}
-              title="Layout Optimization"
-              description="Get recommendations for improved spacing, alignment, and responsive behavior."
-            />
-            <FeatureCard
-              icon={<Zap />}
-              title="Performance Insights"
-              description="Identify UI elements that might impact your site's loading speed and performance."
-            />
-            <FeatureCard
-              icon={<Shield />}
-              title="Accessibility Check"
-              description="Ensure your design meets WCAG standards and is usable by everyone."
-            />
+
+
+      
             <FeatureCard
               icon={<Sparkles />}
               title="Trend Analysis"
@@ -131,9 +137,11 @@ export default function Home() {
 
               <div className="relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
-                <Button className="relative px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 rounded-lg text-lg">
-                  Summon AI Review
-                  <Sparkles className="ml-2 h-5 w-5" />
+                <Button className="relative px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 rounded-lg text-lg" asChild>
+                  <a href="#">
+                    Summon AI Review
+                    <Sparkles className="ml-2 h-5 w-5" />
+                  </a>
                 </Button>
               </div>
             </div>
